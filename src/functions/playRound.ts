@@ -1,8 +1,8 @@
 import calcPorcentage from "../calcs/calcPorcentage";
-import Play from "../types/Play";
+import GameRule from "../types/gameRules";
 import Round from "../types/Round";
 
-function playRound(money: number, gameRules: Play, roundCount: number = 1): Round {
+function playRound(money: number, gameRules: GameRule, roundCount: number = 1): Round {
     const { percentageBet, percentageWin } = gameRules;
 
     const betAmount: number = money * percentageBet;

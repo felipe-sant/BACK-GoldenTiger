@@ -1,12 +1,12 @@
+import GameRule from "./gameRules";
 import Round from "./Round";
 
 type Play = {
     id: string,
     initialMoney: number,
-    percentageWin: number,
-    percentageBet: number,
     numberOfRounds: number,
-    rounds: Round[]
+    gameRule: GameRule,
+    rounds: Round[],
     finalMoney?: number
 }
 
