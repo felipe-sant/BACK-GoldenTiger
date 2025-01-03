@@ -11,7 +11,8 @@ function playRound(money: number, gameRules: GameRule, roundCount: number = 1): 
 
     const round: Round = {
         round: roundCount,
-        currentMoney: newMoney
+        currentMoney: newMoney,
+        won: won
     };
 
     return round;

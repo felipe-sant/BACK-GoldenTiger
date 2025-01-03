@@ -12,11 +12,13 @@ function playGame(game: Play): Play {
         const roundNumber = numberOfRounds - remainingRounds + 1;
         const round = playRound(currentMoney, game.gameRule, roundNumber);
         currentMoney = round.currentMoney;
-        updatedGame.rounds.push(round);
+        // updatedGame.rounds.push(round);
+        if (currentMoney < 1) remainingRounds = 0
         remainingRounds--;
     }
 
     updatedGame.finalMoney = currentMoney;
+    updatedGame.gain = currentMoney - initialMoney
 
     return updatedGame;
 }
