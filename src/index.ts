@@ -1,6 +1,7 @@
 import express, { Request, Response } from 'express';
 import cors from 'cors';
 import playRoutes from './routes/play.routes';
+import userRoutes from './routes/user.routes';
 import readFile from './functions/readFile';
 import dotenv from "dotenv"
 import mongoose from "mongoose"
@@ -32,6 +33,7 @@ app.use('/api/docs', (_: Request, res: Response) => {
 })
 
 app.use('/api', playRoutes)
+app.use('/api', userRoutes)
 
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
