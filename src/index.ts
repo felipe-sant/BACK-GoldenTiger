@@ -2,9 +2,18 @@ import express, { Request, Response } from 'express';
 import cors from 'cors';
 import playRoutes from './routes/play.routes';
 import readFile from './functions/readFile';
+import dotenv from "dotenv"
+import mongoose from "mongoose"
+
+dotenv.config()
 
 const app = express();
 const port = process.env.PORT || 3001
+const MONGODB_URI = process.env.MONGODB_URI || ""
+
+mongoose.connect(MONGODB_URI)
+    .then(() => console.log("MongoDB conectado!"))
+    .catch(err => console.log("Erro ao conectar ao MongoDB", err))
 
 app.use(cors());
 app.use(express.json());
