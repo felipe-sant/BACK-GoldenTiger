@@ -1,9 +1,9 @@
 type UserType = {
     _id?: string
     username: string
-    balanceCash: number
+    balanceCash?: number
     createAt: Date
-    updateAt: Date
+    updateAt?: Date
 }
 
 export default UserType

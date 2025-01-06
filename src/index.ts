@@ -2,7 +2,7 @@ import express, { Request, Response } from 'express';
 import cors from 'cors';
 import playRoutes from './routes/play.routes';
 import userRoutes from './routes/user.routes';
-import readFile from './functions/readFile';
+import readFile from './functions/utils/readFile';
 import dotenv from "dotenv"
 import mongoose from "mongoose"
 

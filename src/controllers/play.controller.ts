@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { PlayService } from "../services/play.service";
-import Round from "../types/Round";
-import Play from "../types/Play";
+import Round from "../types/play/Round";
+import Play from "../types/play/Play";
 
 class PlayController {
     private playService: PlayService

@@ -1,4 +1,4 @@
-import GameRule from "../types/gameRules";
+import GameRule from "../types/play/gameRules";
 
 const globalGameRule: GameRule = {
     percentageWin: 0.4,

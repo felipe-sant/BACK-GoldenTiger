@@ -1,4 +1,4 @@
-import Play from "../types/Play";
+import Play from "../../types/play/Play";
 import playRound from "./playRound";
 
 function playGame(game: Play): Play {

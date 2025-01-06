@@ -1,6 +1,6 @@
-import calcPorcentage from "../calcs/calcPorcentage";
-import GameRule from "../types/gameRules";
-import Round from "../types/Round";
+import calcPorcentage from "../../calcs/calcPorcentage";
+import GameRule from "../../types/play/gameRules";
+import Round from "../../types/play/Round";
 
 function playRound(money: number, gameRules: GameRule, roundCount: number = 1): Round {
     const { percentageBet, percentageWin } = gameRules;

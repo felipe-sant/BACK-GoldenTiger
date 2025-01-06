@@ -20,19 +20,19 @@
   },
   "homepage": "https://github.com/felipe-sant/template-express#readme",
   "description": "",
-  "dependencies": {
-    "express": "^4.17.1"
-  },
   "devDependencies": {
     "@types/bcrypt": "^5.0.2",
     "@types/cors": "^2.8.17",
-    "@types/express": "^4.17.1",
+    "@types/express": "^4.17.21",
     "@types/jest": "^29.5.14",
+    "@types/jsonwebtoken": "^9.0.7",
     "@types/node": "^14.14.31",
     "bcrypt": "^5.1.1",
     "cors": "^2.8.5",
     "dotenv": "^16.4.7",
+    "express": "^4.21.2",
     "jest": "^29.7.0",
+    "jsonwebtoken": "^9.0.2",
     "mongodb": "^6.12.0",
     "mongoose": "^8.9.3",
     "ts-jest": "^29.2.5",

@@ -1,8 +1,8 @@
 import globalGameRule from "../constants/gameRules";
-import playGame from "../functions/playGame";
-import playRound from "../functions/playRound";
-import Play from "../types/Play";
-import Round from "../types/Round";
+import playGame from "../functions/play/playGame";
+import playRound from "../functions/play/playRound";
+import Play from "../types/play/Play";
+import Round from "../types/play/Round";
 
 export class PlayService {
     playRound(query: any): Round {
