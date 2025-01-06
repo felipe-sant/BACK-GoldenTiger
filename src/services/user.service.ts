@@ -17,7 +17,7 @@ export class UserService {
     async loginUser(body: { username: string; password: string }): Promise<string> {
         const { username, password } = body;
 
-        const user = await User.findOne({ username }) as UserType;
+        const user = await User.findOne({ username: { $eq: username } }) as UserType;
         if (!user) throw new Error("User not found");
 
         const auth = await Auth.findOne({ user_id: user._id }) as AuthType;
