@@ -10,7 +10,7 @@ function playGame(game: Play): Play {
 
     while (remainingRounds > 0) {
         const roundNumber = numberOfRounds - remainingRounds + 1;
-        const round = playRound(currentMoney, game.gameRule, roundNumber);
+        const round = playRound(currentMoney, 0.5, roundNumber);
         currentMoney = round.currentMoney;
         updatedGame.rounds.push(round);
         if (currentMoney < 1) remainingRounds = 0

@@ -5,10 +5,12 @@ import Play from "../types/play/Play";
 import Round from "../types/play/Round";
 
 export class PlayService {
-    playRound(query: any): Round {
-        const money = parseFloat(query.money)
+    playRound(money: number, percentageBet: number): Round {
         if (isNaN(money)) throw new Error("Money is not a number")
-        return playRound(money, globalGameRule)
+        if (money <= 0) throw new Error("Money must be greater than 0")
+        if (isNaN(percentageBet)) throw new Error("Percentage Bet is not a number")
+        if (percentageBet <= 0 || percentageBet > 1) throw new Error("Percentage Bet must be between 0 and 1")
+        return playRound(money, percentageBet)
     }
 
     playGame(query: any): Play {

@@ -7,6 +7,8 @@ import hashPassword from "../functions/auth/hashPassword"
 import comparePassword from "../functions/auth/comparePassword"
 import generateAccessToken from "../functions/auth/generateAccessToken"
 import revokedTokens from "../constants/revokedTokens"
+import newDate from "../functions/utils/newDate"
+import { subHours } from 'date-fns';
 
 export class UserService {
     async getUsers(): Promise<UserType[]> {
@@ -41,11 +43,12 @@ export class UserService {
     async registerUser(body: { username: string, password: string }): Promise<Message> {
         const { username, password } = body;
 
+        const now = newDate()
+
         const newUser: UserType = {
             username,
             balanceCash: 1000,
-            createAt: new Date(),
-            updateAt: new Date(),
+            createAt: now
         };
 
         const user = new User(newUser);
@@ -58,8 +61,7 @@ export class UserService {
         const newAuth: AuthType = {
             user_id: userRecord?._id || "",
             passwordHash,
-            createAt: new Date(),
-            updateAt: new Date(),
+            createAt: now
         };
 
         const auth = new Auth(newAuth);
