@@ -2,13 +2,27 @@
     
  # 🐯 Golden Tiger 💸
 
+![express.js](https://img.shields.io/badge/Express.js-404D59?style=for-the-badge&logo=express&logoColor=white)
+![jest](https://img.shields.io/badge/Jest-C21325?style=for-the-badge&logo=jest&logoColor=white)
+![mongodb](https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white)
+![node.js](https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white)
 ![typescript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)
+![vercel](https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white)
 
 </div>
 
 Golden Tiger is a project that simulates a gambling game for statistical study purposes. The goal is to analyze patterns and behaviors in gambling games, providing a better understanding of the probabilities and statistics involved. This repository contains the backend source code for the project.
 
 > [Visit the aplication here!](https://api-goldentiger.vercel.app/)
+
+## 📦 Dependencies
+
+- **express**: Fast, unopinionated, minimalist web framework for Node.js.
+- **mongoose**: Elegant MongoDB object modeling for Node.js.
+- **typescript**: Typed superset of JavaScript that compiles to plain JavaScript.
+- **jest**: Delightful JavaScript Testing Framework with a focus on simplicity.
+- **bcrypt**: A library to help you hash passwords.
+- **dotenv**: Loads environment variables from a `.env` file into `process.env`.
 
 ## ⚙️ How to Run Locally
 
