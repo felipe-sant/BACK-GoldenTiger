@@ -12,23 +12,26 @@ class UserController {
     // GET /api/user/
     async getUsers(_: Request, res: Response) {
         try {
-            const result: UserType[] = await this.userService.getUsers()
-            res.status(200).json(result)
+            const users: UserType[] = await this.userService.getUsers();
+            res.status(200).json(users);
         } catch (error: any) {
-            res.status(500).json({ message: error.message })
+            res.status(500).json({ message: error.message });
         }
     }
 
     // POST /api/user/register
     async registerUser(req: Request, res: Response) {
         try {
-            const body = req.body
-            if (!body.username) throw new Error("Username is required")
-            if (!body.password) throw new Error("Password is required")
-            const result: any = await this.userService.registerUser(body)
-            res.status(200).json(result)
+            const { username, password } = req.body;
+
+            if (!username || !password) {
+                return res.status(400).json({ message: "Username and password are required" });
+            }
+
+            const result = await this.userService.registerUser({ username, password });
+            res.status(201).json(result);
         } catch (error: any) {
-            res.status(500).json({ message: error.message })
+            res.status(500).json({ message: error.message });
         }
     }
 }

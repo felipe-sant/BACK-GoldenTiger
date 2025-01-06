@@ -7,31 +7,37 @@ import hashPassword from "../functions/hashPassword"
 
 export class UserService {
     async getUsers(): Promise<UserType[]> {
-        const users = await User.find() as UserType[]
-        return users
+        const users = await User.find() as UserType[];
+        return users;
     }
 
-    async registerUser(body: any): Promise<Message> {
-        const newUserJson: UserType = {
-            username: body.username,
+    async registerUser(body: { username: string, password: string}): Promise<Message> {
+        const { username, password } = body;
+
+        const newUser: UserType = {
+            username,
             balanceCash: 1000,
             createAt: new Date(),
-            updateAt: new Date()
-        }
-        const user = new User(newUserJson)
-        await user.save()
+            updateAt: new Date(),
+        };
+        
+        const user = new User(newUser);
+        await user.save();
 
-        const password = hashPassword(body.password, 10)
-        const userJson = await User.findOne({ username: body.username }) as UserType
-        const authJson: AuthType = {
-            user_id: userJson._id ? userJson._id : "",
-            passwordHash: password,
+        const passwordHash = hashPassword(password, 10);
+
+        const userRecord = await User.findOne({ username }) as UserType;
+
+        const newAuth: AuthType = {
+            user_id: userRecord?._id || "",
+            passwordHash,
             lastLogin: new Date(),
             createAt: new Date(),
-            updateAt: new Date()
-        }
-        const auth = new Auth(authJson)
-        await auth.save()
+            updateAt: new Date(),
+        };
+
+        const auth = new Auth(newAuth);
+        await auth.save();
 
         return { message: "User registered successfully" }
     }
