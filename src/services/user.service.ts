@@ -1,22 +1,20 @@
-import UserType from "../types/database/User"
-import User from "../models/user.model"
-import Message from "../types/MessageType"
-import AuthType from "../types/database/Auth"
-import Auth from "../models/auth.model"
-import hashPassword from "../functions/auth/hashPassword"
-import comparePassword from "../functions/auth/comparePassword"
-import generateAccessToken from "../functions/auth/generateAccessToken"
-import revokedTokens from "../constants/revokedTokens"
-import newDate from "../functions/utils/newDate"
-import { subHours } from 'date-fns';
+import UserType from "../types/database/User";
+import User from "../models/user.model";
+import Message from "../types/MessageType";
+import AuthType from "../types/database/Auth";
+import Auth from "../models/auth.model";
+import hashPassword from "../functions/auth/hashPassword";
+import comparePassword from "../functions/auth/comparePassword";
+import generateAccessToken from "../functions/auth/generateAccessToken";
+import revokedTokens from "../constants/revokedTokens";
+import newDate from "../functions/utils/newDate";
 
 export class UserService {
     async getUsers(): Promise<UserType[]> {
-        const users = await User.find() as UserType[];
-        return users;
+        return await User.find() as UserType[];
     }
 
-    async loginUser(body: { username: string, password: string }): Promise<string> {
+    async loginUser(body: { username: string; password: string }): Promise<string> {
         const { username, password } = body;
 
         const user = await User.findOne({ username }) as UserType;
@@ -28,25 +26,24 @@ export class UserService {
         const isPasswordMatch = await comparePassword(password, auth.passwordHash);
         if (!isPasswordMatch) throw new Error("Password is incorrect");
 
-        const token = generateAccessToken(user);
-
-        return token;
+        return generateAccessToken(user);
     }
 
     async logoutUser(token: string): Promise<Message> {
         if (token) {
             revokedTokens.add(token);
         }
-        return { message: "User logged out successfully" }
+        return { message: "User logged out successfully" };
     }
 
-    async registerUser(body: { username: string, password: string }): Promise<Message> {
-        const { username, password } = body;
+    async registerUser(body: { username: string, name: string, password: string }): Promise<Message> {
+        const { username, name, password } = body;
 
-        const now = newDate()
+        const now = newDate();
 
         const newUser: UserType = {
             username,
+            name,
             balanceCash: 1000,
             createAt: now
         };
@@ -67,8 +64,8 @@ export class UserService {
         const auth = new Auth(newAuth);
         await auth.save();
 
-        return { message: "User registered successfully" }
+        return { message: "User registered successfully" };
     }
 }
 
-export default UserService
+export default UserService;
