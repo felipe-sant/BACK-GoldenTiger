@@ -6,7 +6,7 @@ import limiter from '../constants/routerLimiter';
 const router = Router();
 const playController = new PlayController()
 
-router.get('/play', authenticateToken, limiter, playController.playRound.bind(playController));
-router.get('/play/muchRounds', authenticateToken, limiter, playController.playGame.bind(playController))
+router.get('/play', limiter, authenticateToken, playController.playRound.bind(playController));
+router.get('/play/muchRounds', limiter, authenticateToken, playController.playGame.bind(playController))
 
 export default router

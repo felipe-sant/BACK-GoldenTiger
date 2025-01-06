@@ -8,7 +8,7 @@ const userController = new UserController()
 
 router.get('/user', limiter, userController.getUsers.bind(userController));
 router.post('/user/login', limiter, userController.loginUser.bind(userController));
-router.post('/user/logout', authenticateToken, limiter, userController.logoutUser.bind(userController));
+router.post('/user/logout', limiter, authenticateToken, userController.logoutUser.bind(userController));
 router.post('/user/register', limiter, userController.registerUser.bind(userController));
 
 export default router
