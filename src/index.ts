@@ -10,7 +10,9 @@ dotenv.config()
 
 const app = express();
 const port = process.env.PORT || 3001
-const MONGODB_URI = process.env.MONGODB_URI || ""
+const password = process.env.MONGO_PASSWORD || ""
+
+const MONGODB_URI = `mongodb+srv://root:${password}@fatec.typea.mongodb.net/?retryWrites=true&w=majority&appName=fatec`
 
 mongoose.connect(MONGODB_URI)
     .then(() => console.log("MongoDB conectado!"))
