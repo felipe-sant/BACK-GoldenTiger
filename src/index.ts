@@ -1,19 +1,24 @@
 import express, { Request, Response } from 'express';
 import cors from 'cors';
 import playRoutes from './routes/play.routes';
-import readFile from './functions/readFile';
+import userRoutes from './routes/user.routes';
+import readFile from './functions/utils/readFile';
 import dotenv from "dotenv"
 import mongoose from "mongoose"
+
+console.clear()
 
 dotenv.config()
 
 const app = express();
 const port = process.env.PORT || 3001
-const MONGODB_URI = process.env.MONGODB_URI || ""
+const password = process.env.MONGO_PASSWORD || ""
+
+const MONGODB_URI = `mongodb+srv://root:${password}@fatec.typea.mongodb.net/?retryWrites=true&w=majority&appName=fatec`
 
 mongoose.connect(MONGODB_URI)
-    .then(() => console.log("MongoDB conectado!"))
-    .catch(err => console.log("Erro ao conectar ao MongoDB", err))
+    .then(() => console.log("MongoDB connected!"))
+    .catch(err => console.log("Error connecting to MongoDB", err))
 
 app.use(cors());
 app.use(express.json());
@@ -32,6 +37,7 @@ app.use('/api/docs', (_: Request, res: Response) => {
 })
 
 app.use('/api', playRoutes)
+app.use('/api', userRoutes)
 
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
