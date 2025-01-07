@@ -10,6 +10,10 @@ import revokedTokens from "../constants/revokedTokens";
 import newDate from "../functions/utils/newDate";
 
 export class UserService {
+    async getAuth(): Promise<AuthType[]> {
+        return await Auth.find() as AuthType[];
+    }
+
     async getUsers(): Promise<UserType[]> {
         return await User.find() as UserType[];
     }
@@ -25,6 +29,8 @@ export class UserService {
 
         const isPasswordMatch = await comparePassword(password, auth.passwordHash);
         if (!isPasswordMatch) throw new Error("Password is incorrect");
+
+        await Auth.updateOne({ user_id: user._id }, { lastLogin: newDate() });   
 
         return generateAccessToken(user);
     }
@@ -45,7 +51,8 @@ export class UserService {
             username,
             name,
             balanceCash: 1000,
-            createAt: now
+            createAt: now,
+            updateAt: null
         };
 
         const user = new User(newUser);
@@ -58,7 +65,9 @@ export class UserService {
         const newAuth: AuthType = {
             user_id: userRecord?._id || "",
             passwordHash,
-            createAt: now
+            lastLogin: null,
+            createAt: now,
+            updateAt: null
         };
 
         const auth = new Auth(newAuth);

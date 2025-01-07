@@ -4,7 +4,7 @@ type UserType = {
     name: string
     balanceCash: number
     createAt: Date
-    updateAt?: Date
+    updateAt?: Date | null
 }
 
 export default UserType

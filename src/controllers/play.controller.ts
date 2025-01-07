@@ -24,7 +24,7 @@ class PlayController {
             const user = await User.findById(userJwt.id) as UserType;
 
             const result: Round = this.playService.playRound(user.balanceCash, parseFloat(percentageBet as string));
-            await User.updateOne({ _id: user._id }, { balanceCash: result.currentMoney, updatedAt: newDate() });
+            await User.updateOne({ _id: user._id }, { balanceCash: result.currentMoney, updateAt: newDate() });
 
             res.status(200).json(result);
         } catch (error: any) {

@@ -1,12 +1,23 @@
 import { Request, Response, NextFunction } from "express";
 import { UserService } from "../services/user.service";
 import UserType from "../types/database/User";
+import AuthType from "../types/database/Auth";
 
 class UserController {
     private userService: UserService;
 
     constructor() {
         this.userService = new UserService();
+    }
+
+    // GET /api/user/auth
+    async getAuth(_: Request, res: Response) {
+        try {
+            const users: AuthType[] = await this.userService.getAuth();
+            res.status(200).json(users);
+        } catch (error: any) {
+            res.status(500).json({ message: "Failed to retrieve users", error: error.message });
+        }
     }
 
     // GET /api/user/
