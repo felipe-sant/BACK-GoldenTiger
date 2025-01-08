@@ -56,8 +56,8 @@ class UserController {
                 return res.status(401).json({ message: "Token is required" });
             }
 
-            await this.userService.logoutUser(token);
-            res.sendStatus(204);
+            const response = await this.userService.logoutUser(token);
+            res.sendStatus(200).json(response);
         } catch (error: any) {
             res.status(500).json({ message: "Logout failed", error: error.message });
         }
