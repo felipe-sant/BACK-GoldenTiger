@@ -28,7 +28,7 @@ class PlayController {
 
             res.status(200).json(result);
         } catch (error: any) {
-            res.status(500).json({ message: error.message });
+            res.status(500).json({ message: "Failed to play a round", error: error.message });
         }
     }
 
@@ -46,7 +46,7 @@ class PlayController {
             const result: Play = this.playService.playGame({ money, numberOfRounds });
             res.status(200).json(result);
         } catch (error: any) {
-            res.status(500).json({ message: error.message });
+            res.status(500).json({ message: "Failed to play a much rounds", error: error.message });
         }
     }
 }
