@@ -10,8 +10,8 @@ class AdminController {
         this.adminService = new AdminService();
     }
 
-    // GET /admin/auth
-    async getAuth(_: Request, res: Response) {
+    // GET /admin/auth/:username
+    async getAuths(_: Request, res: Response) {
         try {
             const users: AuthType[] = await this.adminService.getAuth();
             res.status(200).json(users);
@@ -20,13 +20,51 @@ class AdminController {
         }
     }
 
-    // GET /admin/user
+    // GET /admin/user/
     async getUsers(_: Request, res: Response) {
         try {
             const users: UserType[] = await this.adminService.getUsers();
             res.status(200).json(users);
         } catch (error: any) {
             res.status(500).json({ message: "Failed to retrieve users", error: error.message });
+        }
+    }
+
+    // DELETE /admin/user/
+    async deleteUsers(_: Request, res: Response) {
+        try {
+            const result = await this.adminService.deleteUsers();
+            res.status(200).json(result)
+        } catch (error: any) {
+            res.status(500).json({ message: "Failed to delete users", error: error.message });
+        }
+    }
+
+    // GET /admin/user/:username
+    async getUser(req: Request, res: Response) {
+        try {
+            const username: string = req.params.username;
+            const user: UserType = await this.adminService.getUser(username);
+            if (!user) {
+                return res.status(404).json({ message: "User not found" });
+            }
+            res.status(200).json(user);
+        } catch (error: any) {
+            res.status(500).json({ message: "Failed to retrieve user", error: error.message });
+        }
+    }
+
+    // DELETE /admin/user/:username
+    async deleteUser(req: Request, res: Response) {
+        try {
+            const username: string = req.params.username;
+            const result = await this.adminService.deleteUser(username);
+            if (!result) {
+                return res.status(404).json({ message: "User not found" });
+            }
+            res.status(200).json(result);
+        } catch (error: any) {
+            res.status(500).json({ message: "Failed to delete user", error: error.message });
         }
     }
 }
