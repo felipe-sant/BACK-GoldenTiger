@@ -1,10 +1,10 @@
 import { query, Request, Response } from "express";
 import { PlayService } from "../services/play.service";
-import Round from "../types/play/Round";
-import Play from "../types/play/Play";
-import JwtPayload from "../types/database/JwtPayload";
+import Round from "../types/play/Round.type";
+import Play from "../types/play/Play.type";
+import JwtPayload from "../types/database/JwtPayload.type";
 import User from "../models/user.model";
-import UserType from "../types/database/User";
+import UserType from "../types/database/User.type";
 import newDate from "../functions/utils/newDate";
 
 class PlayController {

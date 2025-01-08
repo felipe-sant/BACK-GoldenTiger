@@ -1,4 +1,4 @@
-import UserType from "../../types/database/User";
+import UserType from "../../types/database/User.type";
 import jwt from 'jsonwebtoken';
 
 function generateAccessToken(user: UserType): string {

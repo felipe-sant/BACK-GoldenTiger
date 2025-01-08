@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import { UserService } from "../services/user.service";
-import UserType from "../types/database/User";
-import AuthType from "../types/database/Auth";
+import UserType from "../types/database/User.type";
+import AuthType from "../types/database/Auth.type";
 
 class UserController {
     private userService: UserService;

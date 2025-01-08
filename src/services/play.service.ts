@@ -1,8 +1,8 @@
 import globalGameRule from "../constants/gameRules";
 import playGame from "../functions/play/playGame";
 import playRound from "../functions/play/playRound";
-import Play from "../types/play/Play";
-import Round from "../types/play/Round";
+import Play from "../types/play/Play.type";
+import Round from "../types/play/Round.type";
 
 export class PlayService {
     playRound(money: number, percentageBet: number): Round {

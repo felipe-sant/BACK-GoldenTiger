@@ -1,7 +1,7 @@
 import calcPorcentage from "../../calcs/calcPorcentage";
 import globalGameRule from "../../constants/gameRules";
-import GameRule from "../../types/play/gameRules";
-import Round from "../../types/play/Round";
+import GameRule from "../../types/play/gameRules.type";
+import Round from "../../types/play/Round.type";
 
 function playRound(money: number, percentageBet: number, roundCount: number = 1): Round {
     const { percentageWin } = globalGameRule as GameRule;

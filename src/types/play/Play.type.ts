@@ -1,5 +1,5 @@
-import GameRule from "./gameRules";
-import Round from "./Round";
+import GameRule from "./gameRules.type";
+import Round from "./Round.type";
 
 type Play = {
     id?: string,
