@@ -10,26 +10,6 @@ class UserController {
         this.userService = new UserService();
     }
 
-    // GET /api/user/auth
-    async getAuth(_: Request, res: Response) {
-        try {
-            const users: AuthType[] = await this.userService.getAuth();
-            res.status(200).json(users);
-        } catch (error: any) {
-            res.status(500).json({ message: "Failed to retrieve users", error: error.message });
-        }
-    }
-
-    // GET /api/user/
-    async getUsers(_: Request, res: Response) {
-        try {
-            const users: UserType[] = await this.userService.getUsers();
-            res.status(200).json(users);
-        } catch (error: any) {
-            res.status(500).json({ message: "Failed to retrieve users", error: error.message });
-        }
-    }
-
     // POST /api/user/login
     async loginUser(req: Request, res: Response) {
         try {

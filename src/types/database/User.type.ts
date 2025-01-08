@@ -3,6 +3,7 @@ type UserType = {
     username: string
     name: string
     balanceCash: number
+    type?: string
     createAt: Date
     updateAt?: Date | null
 }

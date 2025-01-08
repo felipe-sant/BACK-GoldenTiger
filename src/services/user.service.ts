@@ -1,6 +1,5 @@
 import UserType from "../types/database/User.type";
 import User from "../models/user.model";
-import Message from "../types/Message.type";
 import AuthType from "../types/database/Auth.type";
 import Auth from "../models/auth.model";
 import hashPassword from "../functions/auth/hashPassword";
@@ -9,16 +8,9 @@ import generateAccessToken from "../functions/auth/generateAccessToken";
 import revokedTokens from "../constants/revokedTokens";
 import newDate from "../functions/utils/newDate";
 import { Response } from "express";
+import Message from "../types/Message";
 
 export class UserService {
-    async getAuth(): Promise<AuthType[]> {
-        return await Auth.find() as AuthType[];
-    }
-
-    async getUsers(): Promise<UserType[]> {
-        return await User.find() as UserType[];
-    }
-
     async loginUser(res: Response, body: { username: string; password: string }): Promise<string> {
         const { username, password } = body;
 
@@ -52,6 +44,7 @@ export class UserService {
             username,
             name,
             balanceCash: 1000,
+            type: username === "root" ? "admin" : "root",
             createAt: now,
             updateAt: null
         };

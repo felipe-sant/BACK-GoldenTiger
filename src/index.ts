@@ -2,6 +2,7 @@ import express, { Request, Response } from 'express';
 import cors from 'cors';
 import playRoutes from './routes/play.routes';
 import userRoutes from './routes/user.routes';
+import adminRoutes from './routes/admin.routes';
 import readFile from './functions/utils/readFile';
 import dotenv from "dotenv"
 import mongoose from "mongoose"
@@ -36,6 +37,7 @@ app.use('/api/docs', (_: Request, res: Response) => {
     res.status(200).send(indexPage)
 })
 
+app.use('/admin', adminRoutes)
 app.use('/api', playRoutes)
 app.use('/api', userRoutes)
 
