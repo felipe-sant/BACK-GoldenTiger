@@ -22,6 +22,7 @@ class PlayController {
 
             const userJwt: JwtPayload = (req as any).user as JwtPayload;
             const user = await User.findById(userJwt.id) as UserType;
+            if (!user) throw new Error("User not found");
 
             const result: Round = this.playService.playRound(user.balanceCash, parseFloat(percentageBet as string));
             await User.updateOne({ _id: user._id }, { balanceCash: result.currentMoney, updateAt: newDate() });
@@ -36,12 +37,12 @@ class PlayController {
     async playGame(req: Request, res: Response) {
         try {
             const { money, numberOfRounds } = req.query;
-            
+
             if (!money) throw new Error("Money is required");
             if (!numberOfRounds) throw new Error("Number of Rounds is required");
 
-            if (typeof(money) !== "string") throw new Error("Money must be a number");
-            if (typeof(numberOfRounds) !== "string") throw new Error("Number of Rounds must be a number")
+            if (typeof (money) !== "string") throw new Error("Money must be a number");
+            if (typeof (numberOfRounds) !== "string") throw new Error("Number of Rounds must be a number")
 
             const result: Play = this.playService.playGame({ money, numberOfRounds });
             res.status(200).json(result);

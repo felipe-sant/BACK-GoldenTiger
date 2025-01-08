@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import AuthType from "../types/database/Auth.type";
 import UserType from "../types/database/User.type";
 import AdminService from "../services/admin.service";
@@ -61,6 +61,10 @@ class AdminController {
             const result = await this.adminService.deleteUser(username);
             if (!result) {
                 return res.status(404).json({ message: "User not found" });
+            }
+            const loggedUser = (req as any).user as UserType;
+            if (loggedUser.username === username) {
+                return res.status(400).json({ message: "You can't delete yourself" });
             }
             res.status(200).json(result);
         } catch (error: any) {
