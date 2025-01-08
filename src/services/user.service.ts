@@ -8,6 +8,7 @@ import comparePassword from "../functions/auth/comparePassword";
 import generateAccessToken from "../functions/auth/generateAccessToken";
 import revokedTokens from "../constants/revokedTokens";
 import newDate from "../functions/utils/newDate";
+import { Response } from "express";
 
 export class UserService {
     async getAuth(): Promise<AuthType[]> {
@@ -18,17 +19,17 @@ export class UserService {
         return await User.find() as UserType[];
     }
 
-    async loginUser(body: { username: string; password: string }): Promise<string> {
+    async loginUser(res: Response, body: { username: string; password: string }): Promise<string> {
         const { username, password } = body;
 
         const user = await User.findOne({ username: { $eq: username } }) as UserType;
-        if (!user) throw new Error("User not found");
+        if (!user) res.status(404).json({ message: "User not found" })
 
         const auth = await Auth.findOne({ user_id: user._id }) as AuthType;
-        if (!auth) throw new Error("User not found");
+        if (!auth) res.status(404).json({ message: "User not found" })
 
         const isPasswordMatch = await comparePassword(password, auth.passwordHash);
-        if (!isPasswordMatch) throw new Error("Password is incorrect");
+        if (!isPasswordMatch) res.status(401).json({ message: "Password is incorrect" })
 
         await Auth.updateOne({ user_id: user._id }, { lastLogin: newDate() });   
 

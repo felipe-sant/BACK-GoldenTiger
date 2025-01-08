@@ -39,7 +39,7 @@ class UserController {
                 return res.status(400).json({ message: "Username and password are required" });
             }
 
-            const token = await this.userService.loginUser({ username, password });
+            const token = await this.userService.loginUser(res, { username, password });
             res.status(200).json({ token });
         } catch (error: any) {
             res.status(500).json({ message: "Login failed", error: error.message });
@@ -56,8 +56,8 @@ class UserController {
                 return res.status(401).json({ message: "Token is required" });
             }
 
-            await this.userService.logoutUser(token);
-            res.sendStatus(204);
+            const response = await this.userService.logoutUser(token);
+            res.sendStatus(200).json(response);
         } catch (error: any) {
             res.status(500).json({ message: "Logout failed", error: error.message });
         }
