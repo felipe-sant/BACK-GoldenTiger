@@ -67,6 +67,21 @@ class AdminController {
             res.status(500).json({ message: "Failed to delete user", error: error.message });
         }
     }
+
+    // POST /admin/user/:username/setMoney
+    async setMoney(req: Request, res: Response) {
+        try {
+            const username = req.params.username;
+            const { money } = req.query
+            if (!money) return res.status(400).json({ message: "Money is required" });
+            const balanceCash = parseInt(money as string);
+            if (isNaN(balanceCash)) return res.status(400).json({ message: "Money must be a number" });
+            const response = await this.adminService.setMoney(res, username, balanceCash);
+            res.status(200).json(response);
+        } catch (error: any) {
+            res.status(500).json({ message: "Failed to set money", error: error.message });
+        }
+    }
 }
 
 export default AdminController;

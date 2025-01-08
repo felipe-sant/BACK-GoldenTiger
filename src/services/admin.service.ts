@@ -3,6 +3,8 @@ import UserType from "../types/database/User.type";
 import Auth from "../models/auth.model";
 import User from "../models/user.model";
 import Message from "../types/Message";
+import { Response } from "express";
+import newDate from "../functions/utils/newDate";
 
 export class AdminService {
     async getAuth(): Promise<AuthType[]> {
@@ -29,6 +31,13 @@ export class AdminService {
         await User.deleteOne({ username: { $eq: username } });
         await Auth.deleteOne({ user_id: { $eq: user._id } });
         return { message: "User deleted" };
+    }
+
+    async setMoney(res: Response, username: string, balanceCash: number) {
+        const user = await User.findOne({ username: { $eq: username } });
+        if (!user) res.status(404).json({ message: "User not found" });
+        await User.updateOne({ username: { $eq: username } }, { balanceCash: balanceCash, updateAt: newDate() });
+        return { message: "User balance updated" };
     }
 }
 
