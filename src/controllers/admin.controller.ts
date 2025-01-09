@@ -6,11 +6,11 @@ import AdminService from "../services/admin.service";
 class AdminController {
     private adminService: AdminService;
 
-    constructor () {
+    constructor() {
         this.adminService = new AdminService();
     }
 
-    // GET /admin/auth/:username
+    // GET /admin/auth
     async getAuths(_: Request, res: Response) {
         try {
             const users: AuthType[] = await this.adminService.getAuth();
@@ -20,23 +20,13 @@ class AdminController {
         }
     }
 
-    // GET /admin/user/
+    // GET /admin/user
     async getUsers(_: Request, res: Response) {
         try {
             const users: UserType[] = await this.adminService.getUsers();
             res.status(200).json(users);
         } catch (error: any) {
             res.status(500).json({ message: "Failed to retrieve users", error: error.message });
-        }
-    }
-
-    // DELETE /admin/user/
-    async deleteUsers(_: Request, res: Response) {
-        try {
-            const result = await this.adminService.deleteUsers();
-            res.status(200).json(result)
-        } catch (error: any) {
-            res.status(500).json({ message: "Failed to delete users", error: error.message });
         }
     }
 
@@ -51,6 +41,31 @@ class AdminController {
             res.status(200).json(user);
         } catch (error: any) {
             res.status(500).json({ message: "Failed to retrieve user", error: error.message });
+        }
+    }
+
+    // POST /admin/user/:username/setMoney
+    async setMoney(req: Request, res: Response) {
+        try {
+            const username = req.params.username;
+            const { money } = req.query
+            if (!money) return res.status(400).json({ message: "Money is required" });
+            const balanceCash = parseInt(money as string);
+            if (isNaN(balanceCash)) return res.status(400).json({ message: "Money must be a number" });
+            const response = await this.adminService.setMoney(res, username, balanceCash);
+            res.status(200).json(response);
+        } catch (error: any) {
+            res.status(500).json({ message: "Failed to set money", error: error.message });
+        }
+    }
+
+    // DELETE /admin/user
+    async deleteUsers(_: Request, res: Response) {
+        try {
+            const result = await this.adminService.deleteUsers();
+            res.status(200).json(result)
+        } catch (error: any) {
+            res.status(500).json({ message: "Failed to delete users", error: error.message });
         }
     }
 
@@ -69,21 +84,6 @@ class AdminController {
             res.status(200).json(result);
         } catch (error: any) {
             res.status(500).json({ message: "Failed to delete user", error: error.message });
-        }
-    }
-
-    // POST /admin/user/:username/setMoney
-    async setMoney(req: Request, res: Response) {
-        try {
-            const username = req.params.username;
-            const { money } = req.query
-            if (!money) return res.status(400).json({ message: "Money is required" });
-            const balanceCash = parseInt(money as string);
-            if (isNaN(balanceCash)) return res.status(400).json({ message: "Money must be a number" });
-            const response = await this.adminService.setMoney(res, username, balanceCash);
-            res.status(200).json(response);
-        } catch (error: any) {
-            res.status(500).json({ message: "Failed to set money", error: error.message });
         }
     }
 }

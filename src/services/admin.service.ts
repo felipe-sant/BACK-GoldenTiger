@@ -15,14 +15,21 @@ export class AdminService {
         return await User.find() as UserType[];
     }
 
+    async getUser(username: string): Promise<UserType> {
+        return await User.findOne({ username: { $eq: username } }) as UserType;
+    }
+
+    async setMoney(res: Response, username: string, balanceCash: number) {
+        const user = await User.findOne({ username: { $eq: username } });
+        if (!user) res.status(404).json({ message: "User not found" });
+        await User.updateOne({ username: { $eq: username } }, { balanceCash: balanceCash, updateAt: newDate() });
+        return { message: "User balance updated" };
+    }
+
     async deleteUsers(): Promise<Message> {
         await User.deleteMany();
         await Auth.deleteMany();
         return { message: "Users deleted" };
-    }
-
-    async getUser(username: string): Promise<UserType> {
-        return await User.findOne({ username: { $eq: username } }) as UserType;
     }
 
     async deleteUser(username: string): Promise<Message | undefined> {
@@ -31,13 +38,6 @@ export class AdminService {
         await User.deleteOne({ username: { $eq: username } });
         await Auth.deleteOne({ user_id: { $eq: user._id } });
         return { message: "User deleted" };
-    }
-
-    async setMoney(res: Response, username: string, balanceCash: number) {
-        const user = await User.findOne({ username: { $eq: username } });
-        if (!user) res.status(404).json({ message: "User not found" });
-        await User.updateOne({ username: { $eq: username } }, { balanceCash: balanceCash, updateAt: newDate() });
-        return { message: "User balance updated" };
     }
 }
 
