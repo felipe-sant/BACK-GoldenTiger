@@ -5,7 +5,7 @@ async function isAdmin(req: Request, res: Response, next: NextFunction) {
     try {
         const user = (req as any).user as UserType;
         if (user.type !== "admin") {
-            return res.status(403).json({ message: "Forbidden" });
+            return res.status(403).json({ message: "The user must be of the admin type" });
         }
         next();
     } catch (error: any) {
