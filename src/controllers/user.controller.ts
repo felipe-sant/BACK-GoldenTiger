@@ -20,7 +20,7 @@ class UserController {
             }
 
             const token = await this.userService.loginUser(res, { username, password });
-            res.status(200).json({ token });
+            res.status(200).json({ message: "User logged in successfully", token });
         } catch (error: any) {
             res.status(500).json({ message: "Login failed", error: error.message });
         }
